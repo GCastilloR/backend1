@@ -1,0 +1,17 @@
+{
+  "name": "crud",
+  "version": "1.0.0",
+  "description": "tarea",
+  "main": "App.js",
+  "scripts": {
+    "test": "node App",
+    "dev": "nodemon App.js"
+  },
+  "author": "gabriel castillo",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1",
+    "mongoose": "^6.7.0",
+    "nodemon": "^2.0.19"
+  }
+}
