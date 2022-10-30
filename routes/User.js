@@ -1,3 +1,6 @@
+const express = require("express");
+const router = express.Router();
+const Tweet = require("../models/Tweet");
 
 
 app.get('/user',async (req,res) => {
@@ -24,3 +27,7 @@ app.delete('/user/:user',(req,res)=>{
     data.users.splice(ind,1)
     res.json(data.users)
 })
+
+
+
+module.exports = router;

@@ -33,27 +33,9 @@ const data = {
         idProducto:1}]
 }
 
+dotenv.config();
 
-
-//productos
-app.get('/productos',async (req,res) => {
-    console.log(req.query)
-    res.status(200).json(data.products)    
-});
-
-app.get('/productos/:id', async (req,res)=>{
-    let prod=data.products.filter(user=>user.id==req.params.id)
-    res.json(prod)
-})
-
-app.post('/productos',(req,res)=>{
-    console.log(req.body)
-    data.products.push(req.body)
-    res.json(data.products)
-})
-
-
-//compras
-
+const UserRouter = require("./routes/User");
+const tweetsRouter = require("./routes/tweets");
 
 app.listen(8080);
