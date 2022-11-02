@@ -16,3 +16,21 @@ const checkUser = async (req, res, next) => {
         res.status(500).json({ error });
     }
 }
+
+const checkTweet = async (req, res, next) => {
+
+    try {
+        const { id } = req.params;
+        const tweet = await Tweet.findById(id)
+        if (!tweet) {
+            res.status(400).send("This tweet does not exist.");
+        } else {
+            req.tweet = tweet;
+            next();
+        }
+    } catch (error) {
+        res.status(500).json({ error })
+    }
+};
+
+module.exports = { checkUser, checkTweet };

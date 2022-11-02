@@ -3,6 +3,11 @@ const Schema = mongoose.Schema;
 
 const tweetSchema = new Schema(
     {
+      id:{
+        type: Number,
+        required: true,
+        unique:true
+      },
       username: {
         type: String,
         required: true,
