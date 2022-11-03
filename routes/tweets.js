@@ -17,4 +17,30 @@ router.get("/user/:username", logic.checkUser, async (req, res) => {
     }
 });
 
+router.post("/tweet", (req, res) => {
+    const { tweet } = req.body;
+  
+    if (!tweet) {
+      return res.status(400).send("You must supply a tweet in the request body.");
+    }
+  
+    const tweetData = new Tweet({
+      username: req.session.username,
+      tweet,
+      retweets: [],
+      likes: [],
+    });
+  
+    tweetData
+      .save()
+      .then(() => {
+        return res.redirect(`/tweets`);
+      })
+      .catch((error) => {
+        return res.status(500).json({ error });
+      });
+});
+
+
+
 module.exports = router;
