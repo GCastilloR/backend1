@@ -41,6 +41,12 @@ router.post("/tweet", (req, res) => {
       });
 });
 
-
+router.delete("/:id", (req, res) => {
+    req.tweet.remove((error, result) => {
+        if (error) return res.status(500).json(error);
+  
+        return res.status(200).json({ result });
+    });
+})
 
 module.exports = router;

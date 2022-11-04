@@ -43,13 +43,41 @@ router.post('/user', async (req, res) => {
 
 })
 
-router.delete('/:username', (req, res) => {
-    let user = data.users.filter(user => user.id == req.params.id)
-    console.log(user)
-    let ind = data.users.indexOf(user)
-    console.log(ind)
-    data.users.splice(ind, 1)
-    res.json(data.users)
+router.patch('/:username', async (req, res) => {
+    const {username, password}= req.body;
+    try {
+        let user = await User.findOne({ username: new RegExp(`^${username}$`, "i") })
+        if (user) {
+            req.user.username= username;
+            req.user.password= password;
+            req.user.save().then(() => {
+              return res.status(200).json(req.user);
+            })
+        } else {
+            return res.status(404).json("User not found");
+        }
+        
+    } catch (error) {
+        res.status(500).json(error)
+    }
+})
+
+router.delete('/:username', async (req, res) => {
+    try {
+        let user = await User.findOne({ username: new RegExp(`^${username}$`, "i") })
+        if (user) {
+            req.user.remove((error, result) => {
+                if (error) return res.status(500).json(error);
+          
+                return res.status(200).json({ result });
+            });
+        } else {
+            return res.status(404).json("User not found");
+        }
+        
+    } catch (error) {
+        res.status(500).json(error)
+    }
 })
 
 
